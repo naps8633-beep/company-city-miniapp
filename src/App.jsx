@@ -144,114 +144,61 @@ export default function App() {
             </>
           )}
 
-          {active === "Panier" && (
-            <div className="cart-panel">
-              <img
-                className="cart-art"
-                src="/panier-company-city.png"
-                alt="Panier Company City"
-              />
 
-              <h1>MON PANIER</h1>
+{active === "Panier" && (
+  <div className="cart-panel">
+    <h1>MON PANIER</h1>
 
-              {cart.length === 0 ? (
-                <div className="empty-cart">
-                  <div className="product-placeholder">🛒</div>
-                  <h2>TON PANIER EST VIDE</h2>
-                  <p>Retrouve les articles de la boutique ici.</p>
-                  <button
-                    className="add-button"
-                    onClick={() => setActive("Boutique")}
-                  >
-                    Voir la boutique
-                  </button>
-                </div>
-              ) : (
-                <>
-                  {cart.map((item) => (
-                    <div className="cart-item" key={item.id}>
-                      <div className="cart-item-info">
-                        <h2>{item.name}</h2>
-                        <p>
-                          {typeof item.price === "number"
-                            ? `${item.price.toFixed(2)} €`
-                            : "Prix à renseigner"}
-                        </p>
-                      </div>
-
-                      <div className="quantity-controls">
-                        <button onClick={() => changeQuantity(item.id, -1)}>
-                          −
-                        </button>
-                        <strong>{item.quantity}</strong>
-                        <button onClick={() => changeQuantity(item.id, 1)}>
-                          +
-                        </button>
-                      </div>
-
-                      <button
-                        className="remove-button"
-                        onClick={() => removeFromCart(item.id)}
-                      >
-                        Supprimer
-                      </button>
-                    </div>
-                  ))}
-
-                  <div className="cart-total">
-                    <span>TOTAL</span>
-                    <strong>
-                      {hasUnknownPrice ? "À renseigner" : `${total.toFixed(2)} €`}
-                    </strong>
-                  </div>
-
-                  <button
-                    className="clear-cart"
-                    onClick={() => setCart([])}
-                  >
-                    Vider le panier
-                  </button>
-                </>
-              )}
+    {cart.length === 0 ? (
+      <div className="empty-cart">
+        <h2>TON PANIER EST VIDE</h2>
+        <p>Découvre nos produits et ajoute tes articles !</p>
+        <button
+          className="add-button"
+          onClick={() => setActive("Boutique")}
+        >
+          Retour à la boutique
+        </button>
+      </div>
+    ) : (
+      <>
+        {cart.map((item) => (
+          <div className="cart-item" key={item.id}>
+            <div className="cart-item-info">
+              <h2>{item.name}</h2>
+              <p>
+                {typeof item.price === "number"
+                  ? `${item.price.toFixed(2)} €`
+                  : "Prix à renseigner"}
+              </p>
             </div>
-          )}
 
-          {active === "Promotions" && (
-            <div className="promo-panel">
-              <div className="promo-symbol">◇</div>
-              <h1>PROMOTIONS</h1>
-              <p>AUCUNE PROMOTION EN COURS</p>
+            <div className="quantity-controls">
+              <button onClick={() => changeQuantity(item.id, -1)}>−</button>
+              <strong>{item.quantity}</strong>
+              <button onClick={() => changeQuantity(item.id, 1)}>+</button>
             </div>
-          )}
 
-          {active === "Compte" && (
-            <>
-              <h1>COMPTE</h1>
-              <p>Connecte-toi via Telegram pour retrouver tes informations et commandes.</p>
-            </>
-          )}
-
-          <button className="back" onClick={() => setActive("Accueil")}>
-            Retour à l’accueil
-          </button>
-        </section>
-      )}
-
-      <nav className="bottom-nav" aria-label="Navigation principale">
-        {tabs.map((tab, i) => (
-          <button
-            key={tab}
-            className={active === tab ? "nav-item active" : "nav-item"}
-            onClick={() => setActive(tab)}
-          >
-            <span className="nav-icon">
-              {["⌂", "▢", "◇", "🛒", "♙"][i]}
-            </span>
-            <span>{tab}</span>
-            {tab === "Panier" && <small>{cartCount}</small>}
-          </button>
+            <button
+              className="remove-button"
+              onClick={() => removeFromCart(item.id)}
+            >
+              Supprimer
+            </button>
+          </div>
         ))}
-      </nav>
-    </main>
-  );
-}
+
+        <div className="cart-total">
+          <span>TOTAL</span>
+          <strong>
+            {hasUnknownPrice ? "À renseigner" : `${total.toFixed(2)} €`}
+          </strong>
+        </div>
+
+        <button className="clear-cart" onClick={() => setCart([])}>
+          Vider le panier
+        </button>
+      </>
+    )}
+  </div>
+)}
