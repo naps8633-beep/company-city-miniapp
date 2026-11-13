@@ -1,9 +1,11 @@
+
 import React, { useState } from "react";
 
 const tabs = ["Accueil", "Boutique", "Promotions", "Panier", "Compte"];
 
 export default function App() {
   const [active, setActive] = useState("Accueil");
+  const [category, setCategory] = useState("FLEURS");
   const [cartCount] = useState(0);
 
   return (
@@ -26,12 +28,58 @@ export default function App() {
         <section className="placeholder-page">
           <div className="brand">COMPANY CITY</div>
           <p className="location">TOULOUSE & SES ALENTOURS</p>
-          <h1>{active}</h1>
-          {active === "Boutique" && <p>Le catalogue sera ajouté ici après validation des catégories et de la conformité des produits.</p>}
-          {active === "Promotions" && <p>Les offres validées apparaîtront ici.</p>}
-          {active === "Panier" && <p>Ton panier est actuellement vide ({cartCount} article).</p>}
-          {active === "Compte" && <p>Connecte-toi via Telegram pour retrouver tes informations et commandes.</p>}
-          <button className="back" onClick={() => setActive("Accueil")}>Retour à l’accueil</button>
+
+          {active === "Boutique" && (
+            <>
+              <h1>VOICI NOS PRODUITS !</h1>
+              <p className="quality">QUALITY COFFEE</p>
+              <div className="category-tabs">
+                <button
+                  className={category === "FLEURS" ? "category-button selected" : "category-button"}
+                  onClick={() => setCategory("FLEURS")}
+                >
+                  FLEURS
+                </button>
+                <button
+                  className={category === "RÉSINES" ? "category-button selected" : "category-button"}
+                  onClick={() => setCategory("RÉSINES")}
+                >
+                  RÉSINES
+                </button>
+              </div>
+              <div className="empty-products">
+                <div className="product-placeholder">＋</div>
+                <h2>{category}</h2>
+                <p>Les photos et les informations des produits seront ajoutées ici prochainement.</p>
+              </div>
+            </>
+          )}
+
+          {active === "Promotions" && (
+            <div className="promo-panel">
+              <div className="promo-symbol">◇</div>
+              <h1>PROMOTIONS</h1>
+              <p>AUCUNE PROMOTION EN COURS</p>
+            </div>
+          )}
+
+          {active === "Panier" && (
+            <>
+              <h1>PANIER</h1>
+              <p>Ton panier est actuellement vide ({cartCount} article).</p>
+            </>
+          )}
+
+          {active === "Compte" && (
+            <>
+              <h1>COMPTE</h1>
+              <p>Connecte-toi via Telegram pour retrouver tes informations et commandes.</p>
+            </>
+          )}
+
+          <button className="back" onClick={() => setActive("Accueil")}>
+            Retour à l’accueil
+          </button>
         </section>
       )}
 
